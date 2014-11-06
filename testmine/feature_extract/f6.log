@@ -1,0 +1,2124 @@
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+E1001 20:10:02.372978 21907 upgrade_proto.cpp:575] Attempting to upgrade input file specified using deprecated V0LayerParameter: /home/jack/Documents/caffe/testmine/feature_extract/senti/model_new.prototxt
+I1001 20:10:02.373141 21907 upgrade_proto.cpp:582] Successfully upgraded file specified using deprecated V0LayerParameter
+E1001 20:10:02.373150 21907 upgrade_proto.cpp:585] Note that future Caffe releases will not support V0NetParameter; use ./build/tools/upgrade_net_proto_text.bin to upgrade this and any other network proto files to the new format.
+I1001 20:10:02.373306 21907 net.cpp:38] Initializing net from parameters: 
+layers {
+  bottom: "data"
+  top: "conv1"
+  name: "conv1"
+  type: CONVOLUTION
+  blobs_lr: 1
+  blobs_lr: 2
+  weight_decay: 1
+  weight_decay: 0
+  convolution_param {
+    num_output: 96
+    kernel_size: 11
+    stride: 4
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layers {
+  bottom: "conv1"
+  top: "conv1"
+  name: "relu1"
+  type: RELU
+}
+layers {
+  bottom: "conv1"
+  top: "pool1"
+  name: "pool1"
+  type: POOLING
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layers {
+  bottom: "pool1"
+  top: "norm1"
+  name: "norm1"
+  type: LRN
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+layers {
+  bottom: "norm1"
+  top: "conv2"
+  name: "conv2"
+  type: CONVOLUTION
+  blobs_lr: 1
+  blobs_lr: 2
+  weight_decay: 1
+  weight_decay: 0
+  convolution_param {
+    num_output: 256
+    pad: 2
+    kernel_size: 5
+    group: 2
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+layers {
+  bottom: "conv2"
+  top: "conv2"
+  name: "relu2"
+  type: RELU
+}
+layers {
+  bottom: "conv2"
+  top: "pool2"
+  name: "pool2"
+  type: POOLING
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layers {
+  bottom: "pool2"
+  top: "fc7"
+  name: "fc7"
+  type: INNER_PRODUCT
+  blobs_lr: 1
+  blobs_lr: 2
+  weight_decay: 1
+  weight_decay: 0
+  inner_product_param {
+    num_output: 512
+    weight_filler {
+      type: "gaussian"
+      std: 0.005
+    }
+    bias_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+layers {
+  bottom: "fc7"
+  top: "fc7"
+  name: "relu7"
+  type: RELU
+}
+layers {
+  bottom: "fc7"
+  top: "fc7"
+  name: "drop7"
+  type: DROPOUT
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layers {
+  bottom: "fc7"
+  top: "fc8"
+  name: "fc8"
+  type: INNER_PRODUCT
+  blobs_lr: 1
+  blobs_lr: 2
+  weight_decay: 1
+  weight_decay: 0
+  inner_product_param {
+    num_output: 512
+    weight_filler {
+      type: "gaussian"
+      std: 0.005
+    }
+    bias_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+layers {
+  bottom: "fc8"
+  top: "fc8"
+  name: "relu8"
+  type: RELU
+}
+layers {
+  bottom: "fc8"
+  top: "fc8"
+  name: "drop8"
+  type: DROPOUT
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layers {
+  bottom: "fc8"
+  top: "fc9"
+  name: "fc9"
+  type: INNER_PRODUCT
+  blobs_lr: 1
+  blobs_lr: 2
+  weight_decay: 1
+  weight_decay: 0
+  inner_product_param {
+    num_output: 24
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layers {
+  bottom: "fc9"
+  top: "fc10"
+  name: "fc10"
+  type: INNER_PRODUCT
+  blobs_lr: 1
+  blobs_lr: 2
+  weight_decay: 1
+  weight_decay: 0
+  inner_product_param {
+    num_output: 2
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layers {
+  bottom: "fc10"
+  top: "prob"
+  name: "prob"
+  type: SOFTMAX
+}
+input: "data"
+input_dim: 10
+input_dim: 3
+input_dim: 227
+input_dim: 227
+I1001 20:10:02.373358 21907 net.cpp:292] Input 0 -> data
+I1001 20:10:02.373384 21907 net.cpp:66] Creating Layer conv1
+I1001 20:10:02.373391 21907 net.cpp:329] conv1 <- data
+I1001 20:10:02.373399 21907 net.cpp:290] conv1 -> conv1
+I1001 20:10:02.374815 21907 net.cpp:83] Top shape: 10 96 55 55 (2904000)
+I1001 20:10:02.374842 21907 net.cpp:125] conv1 needs backward computation.
+I1001 20:10:02.374861 21907 net.cpp:66] Creating Layer relu1
+I1001 20:10:02.374866 21907 net.cpp:329] relu1 <- conv1
+I1001 20:10:02.374873 21907 net.cpp:280] relu1 -> conv1 (in-place)
+I1001 20:10:02.374882 21907 net.cpp:83] Top shape: 10 96 55 55 (2904000)
+I1001 20:10:02.374888 21907 net.cpp:125] relu1 needs backward computation.
+I1001 20:10:02.374896 21907 net.cpp:66] Creating Layer pool1
+I1001 20:10:02.374900 21907 net.cpp:329] pool1 <- conv1
+I1001 20:10:02.374907 21907 net.cpp:290] pool1 -> pool1
+I1001 20:10:02.374918 21907 net.cpp:83] Top shape: 10 96 27 27 (699840)
+I1001 20:10:02.374924 21907 net.cpp:125] pool1 needs backward computation.
+I1001 20:10:02.374932 21907 net.cpp:66] Creating Layer norm1
+I1001 20:10:02.374936 21907 net.cpp:329] norm1 <- pool1
+I1001 20:10:02.374943 21907 net.cpp:290] norm1 -> norm1
+I1001 20:10:02.374953 21907 net.cpp:83] Top shape: 10 96 27 27 (699840)
+I1001 20:10:02.374958 21907 net.cpp:125] norm1 needs backward computation.
+I1001 20:10:02.374966 21907 net.cpp:66] Creating Layer conv2
+I1001 20:10:02.374971 21907 net.cpp:329] conv2 <- norm1
+I1001 20:10:02.374979 21907 net.cpp:290] conv2 -> conv2
+I1001 20:10:02.384076 21907 net.cpp:83] Top shape: 10 256 27 27 (1866240)
+I1001 20:10:02.384106 21907 net.cpp:125] conv2 needs backward computation.
+I1001 20:10:02.384115 21907 net.cpp:66] Creating Layer relu2
+I1001 20:10:02.384121 21907 net.cpp:329] relu2 <- conv2
+I1001 20:10:02.384129 21907 net.cpp:280] relu2 -> conv2 (in-place)
+I1001 20:10:02.384136 21907 net.cpp:83] Top shape: 10 256 27 27 (1866240)
+I1001 20:10:02.384142 21907 net.cpp:125] relu2 needs backward computation.
+I1001 20:10:02.384148 21907 net.cpp:66] Creating Layer pool2
+I1001 20:10:02.384155 21907 net.cpp:329] pool2 <- conv2
+I1001 20:10:02.384160 21907 net.cpp:290] pool2 -> pool2
+I1001 20:10:02.384169 21907 net.cpp:83] Top shape: 10 256 13 13 (432640)
+I1001 20:10:02.384174 21907 net.cpp:125] pool2 needs backward computation.
+I1001 20:10:02.384182 21907 net.cpp:66] Creating Layer fc7
+I1001 20:10:02.384193 21907 net.cpp:329] fc7 <- pool2
+I1001 20:10:02.384201 21907 net.cpp:290] fc7 -> fc7
+I1001 20:10:03.074110 21907 net.cpp:83] Top shape: 10 512 1 1 (5120)
+I1001 20:10:03.074161 21907 net.cpp:125] fc7 needs backward computation.
+I1001 20:10:03.074177 21907 net.cpp:66] Creating Layer relu7
+I1001 20:10:03.074184 21907 net.cpp:329] relu7 <- fc7
+I1001 20:10:03.074193 21907 net.cpp:280] relu7 -> fc7 (in-place)
+I1001 20:10:03.074203 21907 net.cpp:83] Top shape: 10 512 1 1 (5120)
+I1001 20:10:03.074209 21907 net.cpp:125] relu7 needs backward computation.
+I1001 20:10:03.074216 21907 net.cpp:66] Creating Layer drop7
+I1001 20:10:03.074221 21907 net.cpp:329] drop7 <- fc7
+I1001 20:10:03.074228 21907 net.cpp:280] drop7 -> fc7 (in-place)
+I1001 20:10:03.074239 21907 net.cpp:83] Top shape: 10 512 1 1 (5120)
+I1001 20:10:03.074244 21907 net.cpp:125] drop7 needs backward computation.
+I1001 20:10:03.074256 21907 net.cpp:66] Creating Layer fc8
+I1001 20:10:03.074262 21907 net.cpp:329] fc8 <- fc7
+I1001 20:10:03.074270 21907 net.cpp:290] fc8 -> fc8
+I1001 20:10:03.082120 21907 net.cpp:83] Top shape: 10 512 1 1 (5120)
+I1001 20:10:03.082162 21907 net.cpp:125] fc8 needs backward computation.
+I1001 20:10:03.082175 21907 net.cpp:66] Creating Layer relu8
+I1001 20:10:03.082182 21907 net.cpp:329] relu8 <- fc8
+I1001 20:10:03.082190 21907 net.cpp:280] relu8 -> fc8 (in-place)
+I1001 20:10:03.082200 21907 net.cpp:83] Top shape: 10 512 1 1 (5120)
+I1001 20:10:03.082204 21907 net.cpp:125] relu8 needs backward computation.
+I1001 20:10:03.082211 21907 net.cpp:66] Creating Layer drop8
+I1001 20:10:03.082216 21907 net.cpp:329] drop8 <- fc8
+I1001 20:10:03.082224 21907 net.cpp:280] drop8 -> fc8 (in-place)
+I1001 20:10:03.082232 21907 net.cpp:83] Top shape: 10 512 1 1 (5120)
+I1001 20:10:03.082237 21907 net.cpp:125] drop8 needs backward computation.
+I1001 20:10:03.082247 21907 net.cpp:66] Creating Layer fc9
+I1001 20:10:03.082252 21907 net.cpp:329] fc9 <- fc8
+I1001 20:10:03.082258 21907 net.cpp:290] fc9 -> fc9
+I1001 20:10:03.082639 21907 net.cpp:83] Top shape: 10 24 1 1 (240)
+I1001 20:10:03.082661 21907 net.cpp:125] fc9 needs backward computation.
+I1001 20:10:03.082671 21907 net.cpp:66] Creating Layer fc10
+I1001 20:10:03.082677 21907 net.cpp:329] fc10 <- fc9
+I1001 20:10:03.082684 21907 net.cpp:290] fc10 -> fc10
+I1001 20:10:03.082696 21907 net.cpp:83] Top shape: 10 2 1 1 (20)
+I1001 20:10:03.082705 21907 net.cpp:125] fc10 needs backward computation.
+I1001 20:10:03.082712 21907 net.cpp:66] Creating Layer prob
+I1001 20:10:03.082717 21907 net.cpp:329] prob <- fc10
+I1001 20:10:03.082725 21907 net.cpp:290] prob -> prob
+I1001 20:10:03.082734 21907 net.cpp:83] Top shape: 10 2 1 1 (20)
+I1001 20:10:03.082741 21907 net.cpp:125] prob needs backward computation.
+I1001 20:10:03.082744 21907 net.cpp:156] This network produces output prob
+I1001 20:10:03.082758 21907 net.cpp:402] Collecting Learning Rate and Weight Decay.
+I1001 20:10:03.082767 21907 net.cpp:167] Network initialization done.
+I1001 20:10:03.082772 21907 net.cpp:168] Memory required for data: 6183480
+E1001 20:10:03.266532 21907 upgrade_proto.cpp:598] Attempting to upgrade input file specified using deprecated V0LayerParameter: /home/jack/Documents/caffe/testmine/feature_extract/senti/pretrained_model
+I1001 20:10:03.460011 21907 upgrade_proto.cpp:605] Successfully upgraded file specified using deprecated V0LayerParameter
+E1001 20:10:03.460060 21907 upgrade_proto.cpp:608] Note that future Caffe releases will not support V0NetParameter; use ./build/tools/upgrade_net_proto_binary.bin to upgrade this and any other network proto files to the new format.
+100 inputs have finished.
+Time has gone 65.09 s.
+200 inputs have finished.
+Time has gone 129.77 s.
+300 inputs have finished.
+Time has gone 193.48 s.
+400 inputs have finished.
+Time has gone 258.39 s.
+500 inputs have finished.
+Time has gone 323.81 s.
+600 inputs have finished.
+Time has gone 388.64 s.
+700 inputs have finished.
+Time has gone 453.78 s.
+800 inputs have finished.
+Time has gone 518.03 s.
+900 inputs have finished.
+Time has gone 583.93 s.
+1000 inputs have finished.
+Time has gone 649.73 s.
+1100 inputs have finished.
+Time has gone 715.66 s.
+1200 inputs have finished.
+Time has gone 783.51 s.
+1300 inputs have finished.
+Time has gone 849.13 s.
+1400 inputs have finished.
+Time has gone 914.91 s.
+1500 inputs have finished.
+Time has gone 981.48 s.
+1600 inputs have finished.
+Time has gone 1048.11 s.
+1700 inputs have finished.
+Time has gone 1115.72 s.
+1800 inputs have finished.
+Time has gone 1183.37 s.
+1900 inputs have finished.
+Time has gone 1251.19 s.
+2000 inputs have finished.
+Time has gone 1323.04 s.
+2100 inputs have finished.
+Time has gone 1394.56 s.
+2200 inputs have finished.
+Time has gone 1464.00 s.
+2300 inputs have finished.
+Time has gone 1534.43 s.
+2400 inputs have finished.
+Time has gone 1605.90 s.
+2500 inputs have finished.
+Time has gone 1675.81 s.
+2600 inputs have finished.
+Time has gone 1745.77 s.
+2700 inputs have finished.
+Time has gone 1815.39 s.
+2800 inputs have finished.
+Time has gone 1884.01 s.
+2900 inputs have finished.
+Time has gone 1953.11 s.
+3000 inputs have finished.
+Time has gone 2022.90 s.
+3100 inputs have finished.
+Time has gone 2091.94 s.
+3200 inputs have finished.
+Time has gone 2161.19 s.
+3300 inputs have finished.
+Time has gone 2231.30 s.
+3400 inputs have finished.
+Time has gone 2303.56 s.
+3500 inputs have finished.
+Time has gone 2376.14 s.
+3600 inputs have finished.
+Time has gone 2447.21 s.
+3700 inputs have finished.
+Time has gone 2519.09 s.
+3800 inputs have finished.
+Time has gone 2590.73 s.
+3900 inputs have finished.
+Time has gone 2660.64 s.
+4000 inputs have finished.
+Time has gone 2731.18 s.
+4100 inputs have finished.
+Time has gone 2800.23 s.
+4200 inputs have finished.
+Time has gone 2868.50 s.
+4300 inputs have finished.
+Time has gone 2937.26 s.
+4400 inputs have finished.
+Time has gone 3005.02 s.
+4500 inputs have finished.
+Time has gone 3073.23 s.
+4600 inputs have finished.
+Time has gone 3141.87 s.
+4700 inputs have finished.
+Time has gone 3210.68 s.
+4800 inputs have finished.
+Time has gone 3279.84 s.
+4900 inputs have finished.
+Time has gone 3348.11 s.
+5000 inputs have finished.
+Time has gone 3416.89 s.
+5100 inputs have finished.
+Time has gone 3485.89 s.
+5200 inputs have finished.
+Time has gone 3555.65 s.
+5300 inputs have finished.
+Time has gone 3627.60 s.
+5400 inputs have finished.
+Time has gone 3701.58 s.
+5500 inputs have finished.
+Time has gone 3770.68 s.
+5600 inputs have finished.
+Time has gone 3839.35 s.
+5700 inputs have finished.
+Time has gone 3907.52 s.
+5800 inputs have finished.
+Time has gone 3976.28 s.
+5900 inputs have finished.
+Time has gone 4046.26 s.
+6000 inputs have finished.
+Time has gone 4116.41 s.
+6100 inputs have finished.
+Time has gone 4187.41 s.
+6200 inputs have finished.
+Time has gone 4256.68 s.
+6300 inputs have finished.
+Time has gone 4324.49 s.
+6400 inputs have finished.
+Time has gone 4393.81 s.
+6500 inputs have finished.
+Time has gone 4461.77 s.
+6600 inputs have finished.
+Time has gone 4530.47 s.
+6700 inputs have finished.
+Time has gone 4599.75 s.
+6800 inputs have finished.
+Time has gone 4667.69 s.
+6900 inputs have finished.
+Time has gone 4735.52 s.
+7000 inputs have finished.
+Time has gone 4804.53 s.
+7100 inputs have finished.
+Time has gone 4872.84 s.
+7200 inputs have finished.
+Time has gone 4941.55 s.
+7300 inputs have finished.
+Time has gone 5011.47 s.
+7400 inputs have finished.
+Time has gone 5080.57 s.
+7500 inputs have finished.
+Time has gone 5149.17 s.
+7600 inputs have finished.
+Time has gone 5216.37 s.
+7700 inputs have finished.
+Time has gone 5284.56 s.
+7800 inputs have finished.
+Time has gone 5352.93 s.
+7900 inputs have finished.
+Time has gone 5421.39 s.
+8000 inputs have finished.
+Time has gone 5490.23 s.
+8100 inputs have finished.
+Time has gone 5558.64 s.
+8200 inputs have finished.
+Time has gone 5626.21 s.
+8300 inputs have finished.
+Time has gone 5694.28 s.
+8400 inputs have finished.
+Time has gone 5762.07 s.
+8500 inputs have finished.
+Time has gone 5830.95 s.
+8600 inputs have finished.
+Time has gone 5899.50 s.
+8700 inputs have finished.
+Time has gone 5966.98 s.
+8800 inputs have finished.
+Time has gone 6035.58 s.
+8900 inputs have finished.
+Time has gone 6104.38 s.
+9000 inputs have finished.
+Time has gone 6173.42 s.
+9100 inputs have finished.
+Time has gone 6242.43 s.
+9200 inputs have finished.
+Time has gone 6311.27 s.
+9300 inputs have finished.
+Time has gone 6380.45 s.
+9400 inputs have finished.
+Time has gone 6450.20 s.
+9500 inputs have finished.
+Time has gone 6518.98 s.
+9600 inputs have finished.
+Time has gone 6588.50 s.
+9700 inputs have finished.
+Time has gone 6657.08 s.
+9800 inputs have finished.
+Time has gone 6726.25 s.
+9900 inputs have finished.
+Time has gone 6796.27 s.
+10000 inputs have finished.
+Time has gone 6865.76 s.
+10100 inputs have finished.
+Time has gone 6934.19 s.
+10200 inputs have finished.
+Time has gone 7003.23 s.
+10300 inputs have finished.
+Time has gone 7073.06 s.
+10400 inputs have finished.
+Time has gone 7141.82 s.
+10500 inputs have finished.
+Time has gone 7210.71 s.
+10600 inputs have finished.
+Time has gone 7279.82 s.
+10700 inputs have finished.
+Time has gone 7347.96 s.
+10800 inputs have finished.
+Time has gone 7417.25 s.
+10900 inputs have finished.
+Time has gone 7485.95 s.
+11000 inputs have finished.
+Time has gone 7554.35 s.
+11100 inputs have finished.
+Time has gone 7623.00 s.
+11200 inputs have finished.
+Time has gone 7691.12 s.
+11300 inputs have finished.
+Time has gone 7759.89 s.
+11400 inputs have finished.
+Time has gone 7827.62 s.
+11500 inputs have finished.
+Time has gone 7896.24 s.
+11600 inputs have finished.
+Time has gone 7965.42 s.
+11700 inputs have finished.
+Time has gone 8034.86 s.
+11800 inputs have finished.
+Time has gone 8103.66 s.
+11900 inputs have finished.
+Time has gone 8171.56 s.
+12000 inputs have finished.
+Time has gone 8240.92 s.
+12100 inputs have finished.
+Time has gone 8310.31 s.
+12200 inputs have finished.
+Time has gone 8381.69 s.
+12300 inputs have finished.
+Time has gone 8452.15 s.
+12400 inputs have finished.
+Time has gone 8523.42 s.
+12500 inputs have finished.
+Time has gone 8593.35 s.
+12600 inputs have finished.
+Time has gone 8662.80 s.
+12700 inputs have finished.
+Time has gone 8731.46 s.
+12800 inputs have finished.
+Time has gone 8800.23 s.
+12900 inputs have finished.
+Time has gone 8869.88 s.
+13000 inputs have finished.
+Time has gone 8938.56 s.
+13100 inputs have finished.
+Time has gone 9007.97 s.
+13200 inputs have finished.
+Time has gone 9076.74 s.
+13300 inputs have finished.
+Time has gone 9146.01 s.
+13400 inputs have finished.
+Time has gone 9214.54 s.
+13500 inputs have finished.
+Time has gone 9285.43 s.
+13600 inputs have finished.
+Time has gone 9355.71 s.
+13700 inputs have finished.
+Time has gone 9425.84 s.
+13800 inputs have finished.
+Time has gone 9494.15 s.
+13900 inputs have finished.
+Time has gone 9563.27 s.
+14000 inputs have finished.
+Time has gone 9633.68 s.
+14100 inputs have finished.
+Time has gone 9705.64 s.
+14200 inputs have finished.
+Time has gone 9773.98 s.
+14300 inputs have finished.
+Time has gone 9842.60 s.
+14400 inputs have finished.
+Time has gone 9910.75 s.
+14500 inputs have finished.
+Time has gone 9978.68 s.
+14600 inputs have finished.
+Time has gone 10047.60 s.
+14700 inputs have finished.
+Time has gone 10115.35 s.
+14800 inputs have finished.
+Time has gone 10185.22 s.
+14900 inputs have finished.
+Time has gone 10255.05 s.
+15000 inputs have finished.
+Time has gone 10324.04 s.
+15100 inputs have finished.
+Time has gone 10396.50 s.
+15200 inputs have finished.
+Time has gone 10465.16 s.
+15300 inputs have finished.
+Time has gone 10533.96 s.
+15400 inputs have finished.
+Time has gone 10602.78 s.
+15500 inputs have finished.
+Time has gone 10671.28 s.
+15600 inputs have finished.
+Time has gone 10740.09 s.
+15700 inputs have finished.
+Time has gone 10809.48 s.
+15800 inputs have finished.
+Time has gone 10878.43 s.
+15900 inputs have finished.
+Time has gone 10946.82 s.
+16000 inputs have finished.
+Time has gone 11015.60 s.
+16100 inputs have finished.
+Time has gone 11084.61 s.
+16200 inputs have finished.
+Time has gone 11153.22 s.
+16300 inputs have finished.
+Time has gone 11222.89 s.
+16400 inputs have finished.
+Time has gone 11291.93 s.
+16500 inputs have finished.
+Time has gone 11361.02 s.
+16600 inputs have finished.
+Time has gone 11430.19 s.
+16700 inputs have finished.
+Time has gone 11499.33 s.
+16800 inputs have finished.
+Time has gone 11567.83 s.
+16900 inputs have finished.
+Time has gone 11636.48 s.
+17000 inputs have finished.
+Time has gone 11705.17 s.
+17100 inputs have finished.
+Time has gone 11774.05 s.
+17200 inputs have finished.
+Time has gone 11842.28 s.
+17300 inputs have finished.
+Time has gone 11910.48 s.
+17400 inputs have finished.
+Time has gone 11979.02 s.
+17500 inputs have finished.
+Time has gone 12047.91 s.
+17600 inputs have finished.
+Time has gone 12118.59 s.
+17700 inputs have finished.
+Time has gone 12187.70 s.
+17800 inputs have finished.
+Time has gone 12257.15 s.
+17900 inputs have finished.
+Time has gone 12327.18 s.
+18000 inputs have finished.
+Time has gone 12396.48 s.
+18100 inputs have finished.
+Time has gone 12466.53 s.
+18200 inputs have finished.
+Time has gone 12535.90 s.
+18300 inputs have finished.
+Time has gone 12604.36 s.
+18400 inputs have finished.
+Time has gone 12672.45 s.
+18500 inputs have finished.
+Time has gone 12740.25 s.
+18600 inputs have finished.
+Time has gone 12808.45 s.
+18700 inputs have finished.
+Time has gone 12876.28 s.
+18800 inputs have finished.
+Time has gone 12945.04 s.
+18900 inputs have finished.
+Time has gone 13013.63 s.
+19000 inputs have finished.
+Time has gone 13082.98 s.
+19100 inputs have finished.
+Time has gone 13153.41 s.
+19200 inputs have finished.
+Time has gone 13221.79 s.
+19300 inputs have finished.
+Time has gone 13290.50 s.
+19400 inputs have finished.
+Time has gone 13358.84 s.
+19500 inputs have finished.
+Time has gone 13427.41 s.
+19600 inputs have finished.
+Time has gone 13497.83 s.
+19700 inputs have finished.
+Time has gone 13567.02 s.
+19800 inputs have finished.
+Time has gone 13637.24 s.
+19900 inputs have finished.
+Time has gone 13706.04 s.
+20000 inputs have finished.
+Time has gone 13774.83 s.
+20100 inputs have finished.
+Time has gone 13843.67 s.
+20200 inputs have finished.
+Time has gone 13913.62 s.
+20300 inputs have finished.
+Time has gone 13982.23 s.
+20400 inputs have finished.
+Time has gone 14051.18 s.
+20500 inputs have finished.
+Time has gone 14120.57 s.
+20600 inputs have finished.
+Time has gone 14190.14 s.
+20700 inputs have finished.
+Time has gone 14259.67 s.
+20800 inputs have finished.
+Time has gone 14328.96 s.
+20900 inputs have finished.
+Time has gone 14397.47 s.
+21000 inputs have finished.
+Time has gone 14466.02 s.
+21100 inputs have finished.
+Time has gone 14534.12 s.
+21200 inputs have finished.
+Time has gone 14602.00 s.
+21300 inputs have finished.
+Time has gone 14670.99 s.
+21400 inputs have finished.
+Time has gone 14739.56 s.
+21500 inputs have finished.
+Time has gone 14807.78 s.
+21600 inputs have finished.
+Time has gone 14877.07 s.
+21700 inputs have finished.
+Time has gone 14946.35 s.
+21800 inputs have finished.
+Time has gone 15014.47 s.
+21900 inputs have finished.
+Time has gone 15082.97 s.
+22000 inputs have finished.
+Time has gone 15151.83 s.
+22100 inputs have finished.
+Time has gone 15219.90 s.
+22200 inputs have finished.
+Time has gone 15287.75 s.
+22300 inputs have finished.
+Time has gone 15355.63 s.
+22400 inputs have finished.
+Time has gone 15423.76 s.
+22500 inputs have finished.
+Time has gone 15492.26 s.
+22600 inputs have finished.
+Time has gone 15561.67 s.
+22700 inputs have finished.
+Time has gone 15630.17 s.
+22800 inputs have finished.
+Time has gone 15698.92 s.
+22900 inputs have finished.
+Time has gone 15769.41 s.
+23000 inputs have finished.
+Time has gone 15841.83 s.
+23100 inputs have finished.
+Time has gone 15909.27 s.
+23200 inputs have finished.
+Time has gone 15977.24 s.
+23300 inputs have finished.
+T/home/jack/Documents/caffe/testmine/feature_extract/caffe/io.py:48: RuntimeWarning: invalid value encountered in divide
+  im_std = (im - im_min) / (im_max - im_min)
+ime has gone 16045.04 s.
+23400 inputs have finished.
+Time has gone 16112.74 s.
+23500 inputs have finished.
+Time has gone 16180.66 s.
+23600 inputs have finished.
+Time has gone 16248.67 s.
+23700 inputs have finished.
+Time has gone 16316.81 s.
+23800 inputs have finished.
+Time has gone 16385.56 s.
+23900 inputs have finished.
+Time has gone 16453.41 s.
+24000 inputs have finished.
+Time has gone 16521.11 s.
+24100 inputs have finished.
+Time has gone 16588.57 s.
+24200 inputs have finished.
+Time has gone 16656.27 s.
+24300 inputs have finished.
+Time has gone 16724.70 s.
+24400 inputs have finished.
+Time has gone 16795.22 s.
+24500 inputs have finished.
+Time has gone 16865.03 s.
+24600 inputs have finished.
+Time has gone 16933.67 s.
+24700 inputs have finished.
+Time has gone 17002.75 s.
+24800 inputs have finished.
+Time has gone 17072.41 s.
+24900 inputs have finished.
+Time has gone 17141.14 s.
+25000 inputs have finished.
+Time has gone 17209.01 s.
+25100 inputs have finished.
+Time has gone 17277.19 s.
+25200 inputs have finished.
+Time has gone 17345.38 s.
+25300 inputs have finished.
+Time has gone 17413.89 s.
+25400 inputs have finished.
+Time has gone 17482.36 s.
+25500 inputs have finished.
+Time has gone 17551.39 s.
+25600 inputs have finished.
+Time has gone 17620.09 s.
+25700 inputs have finished.
+Time has gone 17689.05 s.
+25800 inputs have finished.
+Time has gone 17757.57 s.
+25900 inputs have finished.
+Time has gone 17828.42 s.
+26000 inputs have finished.
+Time has gone 17896.81 s.
+26100 inputs have finished.
+Time has gone 17965.94 s.
+26200 inputs have finished.
+Time has gone 18035.50 s.
+26300 inputs have finished.
+Time has gone 18105.52 s.
+26400 inputs have finished.
+Time has gone 18175.59 s.
+26500 inputs have finished.
+Time has gone 18245.15 s.
+26600 inputs have finished.
+Time has gone 18315.23 s.
+26700 inputs have finished.
+Time has gone 18383.56 s.
+26800 inputs have finished.
+Time has gone 18451.28 s.
+26900 inputs have finished.
+Time has gone 18518.78 s.
+27000 inputs have finished.
+Time has gone 18586.87 s.
+27100 inputs have finished.
+Time has gone 18655.56 s.
+27200 inputs have finished.
+Time has gone 18723.64 s.
+27300 inputs have finished.
+Time has gone 18791.20 s.
+27400 inputs have finished.
+Time has gone 18858.81 s.
+27500 inputs have finished.
+Time has gone 18926.77 s.
+27600 inputs have finished.
+Time has gone 18994.13 s.
+27700 inputs have finished.
+Time has gone 19061.94 s.
+27800 inputs have finished.
+Time has gone 19130.18 s.
+27900 inputs have finished.
+Time has gone 19198.59 s.
+28000 inputs have finished.
+Time has gone 19266.92 s.
+28100 inputs have finished.
+Time has gone 19335.01 s.
+28200 inputs have finished.
+Time has gone 19403.30 s.
+28300 inputs have finished.
+Time has gone 19471.90 s.
+28400 inputs have finished.
+Time has gone 19539.77 s.
+28500 inputs have finished.
+Time has gone 19608.92 s.
+28600 inputs have finished.
+Time has gone 19677.36 s.
+28700 inputs have finished.
+Time has gone 19745.50 s.
+28800 inputs have finished.
+Time has gone 19814.43 s.
+28900 inputs have finished.
+Time has gone 19883.50 s.
+29000 inputs have finished.
+Time has gone 19951.78 s.
+29100 inputs have finished.
+Time has gone 20019.74 s.
+29200 inputs have finished.
+Time has gone 20088.19 s.
+29300 inputs have finished.
+Time has gone 20157.03 s.
+29400 inputs have finished.
+Time has gone 20225.31 s.
+29500 inputs have finished.
+Time has gone 20293.54 s.
+29600 inputs have finished.
+Time has gone 20361.55 s.
+29700 inputs have finished.
+Time has gone 20429.66 s.
+29800 inputs have finished.
+Time has gone 20498.32 s.
+29900 inputs have finished.
+Time has gone 20567.18 s.
+30000 inputs have finished.
+Time has gone 20636.63 s.
+30100 inputs have finished.
+Time has gone 20706.23 s.
+30200 inputs have finished.
+Time has gone 20774.86 s.
+30300 inputs have finished.
+Time has gone 20843.20 s.
+30400 inputs have finished.
+Time has gone 20911.70 s.
+30500 inputs have finished.
+Time has gone 20979.72 s.
+30600 inputs have finished.
+Time has gone 21047.96 s.
+30700 inputs have finished.
+Time has gone 21116.39 s.
+30800 inputs have finished.
+Time has gone 21185.21 s.
+30900 inputs have finished.
+Time has gone 21253.60 s.
+31000 inputs have finished.
+Time has gone 21321.77 s.
+31100 inputs have finished.
+Time has gone 21389.92 s.
+31200 inputs have finished.
+Time has gone 21458.61 s.
+31300 inputs have finished.
+Time has gone 21527.81 s.
+31400 inputs have finished.
+Time has gone 21596.47 s.
+31500 inputs have finished.
+Time has gone 21665.90 s.
+31600 inputs have finished.
+Time has gone 21734.71 s.
+31700 inputs have finished.
+Time has gone 21802.76 s.
+31800 inputs have finished.
+Time has gone 21871.48 s.
+31900 inputs have finished.
+Time has gone 21940.68 s.
+32000 inputs have finished.
+Time has gone 22009.20 s.
+32100 inputs have finished.
+Time has gone 22077.49 s.
+32200 inputs have finished.
+Time has gone 22146.11 s.
+32300 inputs have finished.
+Time has gone 22214.42 s.
+32400 inputs have finished.
+Time has gone 22282.54 s.
+32500 inputs have finished.
+Time has gone 22350.20 s.
+32600 inputs have finished.
+Time has gone 22418.23 s.
+32700 inputs have finished.
+Time has gone 22486.83 s.
+32800 inputs have finished.
+Time has gone 22555.53 s.
+32900 inputs have finished.
+Time has gone 22624.74 s.
+33000 inputs have finished.
+Time has gone 22693.73 s.
+33100 inputs have finished.
+Time has gone 22763.69 s.
+33200 inputs have finished.
+Time has gone 22833.35 s.
+33300 inputs have finished.
+Time has gone 22901.19 s.
+33400 inputs have finished.
+Time has gone 22968.74 s.
+33500 inputs have finished.
+Time has gone 23038.14 s.
+33600 inputs have finished.
+Time has gone 23107.66 s.
+33700 inputs have finished.
+Time has gone 23176.59 s.
+33800 inputs have finished.
+Time has gone 23245.51 s.
+33900 inputs have finished.
+Time has gone 23314.05 s.
+34000 inputs have finished.
+Time has gone 23382.57 s.
+34100 inputs have finished.
+Time has gone 23450.14 s.
+34200 inputs have finished.
+Time has gone 23518.16 s.
+34300 inputs have finished.
+Time has gone 23586.51 s.
+34400 inputs have finished.
+Time has gone 23654.55 s.
+34500 inputs have finished.
+Time has gone 23722.99 s.
+34600 inputs have finished.
+Time has gone 23791.64 s.
+34700 inputs have finished.
+Time has gone 23861.89 s.
+34800 inputs have finished.
+Time has gone 23931.23 s.
+34900 inputs have finished.
+Time has gone 24000.30 s.
+35000 inputs have finished.
+Time has gone 24068.58 s.
+35100 inputs have finished.
+Time has gone 24138.08 s.
+35200 inputs have finished.
+Time has gone 24207.17 s.
+35300 inputs have finished.
+Time has gone 24276.26 s.
+35400 inputs have finished.
+Time has gone 24344.61 s.
+35500 inputs have finished.
+Time has gone 24413.52 s.
+35600 inputs have finished.
+Time has gone 24482.76 s.
+35700 inputs have finished.
+Time has gone 24552.30 s.
+35800 inputs have finished.
+Time has gone 24621.50 s.
+35900 inputs have finished.
+Time has gone 24689.65 s.
+36000 inputs have finished.
+Time has gone 24758.53 s.
+36100 inputs have finished.
+Time has gone 24826.45 s.
+36200 inputs have finished.
+Time has gone 24895.34 s.
+36300 inputs have finished.
+Time has gone 24964.48 s.
+36400 inputs have finished.
+Time has gone 25032.36 s.
+36500 inputs have finished.
+Time has gone 25100.43 s.
+36600 inputs have finished.
+Time has gone 25168.89 s.
+36700 inputs have finished.
+Time has gone 25236.85 s.
+36800 inputs have finished.
+Time has gone 25304.51 s.
+36900 inputs have finished.
+Time has gone 25372.45 s.
+37000 inputs have finished.
+Time has gone 25440.70 s.
+37100 inputs have finished.
+Time has gone 25508.12 s.
+37200 inputs have finished.
+Time has gone 25575.80 s.
+37300 inputs have finished.
+Time has gone 25644.33 s.
+37400 inputs have finished.
+Time has gone 25712.06 s.
+37500 inputs have finished.
+Time has gone 25779.78 s.
+37600 inputs have finished.
+Time has gone 25847.76 s.
+37700 inputs have finished.
+Time has gone 25917.61 s.
+37800 inputs have finished.
+Time has gone 25986.95 s.
+37900 inputs have finished.
+Time has gone 26054.72 s.
+38000 inputs have finished.
+Time has gone 26122.15 s.
+38100 inputs have finished.
+Time has gone 26189.79 s.
+38200 inputs have finished.
+Time has gone 26258.13 s.
+38300 inputs have finished.
+Time has gone 26325.75 s.
+38400 inputs have finished.
+Time has gone 26393.64 s.
+38500 inputs have finished.
+Time has gone 26461.57 s.
+38600 inputs have finished.
+Time has gone 26529.46 s.
+38700 inputs have finished.
+Time has gone 26597.91 s.
+38800 inputs have finished.
+Time has gone 26666.01 s.
+38900 inputs have finished.
+Time has gone 26735.15 s.
+39000 inputs have finished.
+Time has gone 26802.81 s.
+39100 inputs have finished.
+Time has gone 26871.39 s.
+39200 inputs have finished.
+Time has gone 26939.19 s.
+39300 inputs have finished.
+Time has gone 27007.09 s.
+39400 inputs have finished.
+Time has gone 27075.14 s.
+39500 inputs have finished.
+Time has gone 27143.65 s.
+39600 inputs have finished.
+Time has gone 27211.56 s.
+39700 inputs have finished.
+Time has gone 27279.49 s.
+39800 inputs have finished.
+Time has gone 27347.62 s.
+39900 inputs have finished.
+Time has gone 27415.65 s.
+40000 inputs have finished.
+Time has gone 27484.23 s.
+40100 inputs have finished.
+Time has gone 27552.13 s.
+40200 inputs have finished.
+Time has gone 27620.13 s.
+40300 inputs have finished.
+Time has gone 27687.74 s.
+40400 inputs have finished.
+Time has gone 27756.50 s.
+40500 inputs have finished.
+Time has gone 27825.18 s.
+40600 inputs have finished.
+Time has gone 27893.29 s.
+40700 inputs have finished.
+Time has gone 27962.14 s.
+40800 inputs have finished.
+Time has gone 28030.74 s.
+40900 inputs have finished.
+Time has gone 28099.51 s.
+41000 inputs have finished.
+Time has gone 28168.03 s.
+41100 inputs have finished.
+Time has gone 28236.45 s.
+41200 inputs have finished.
+Time has gone 28305.89 s.
+41300 inputs have finished.
+Time has gone 28374.73 s.
+41400 inputs have finished.
+Time has gone 28442.73 s.
+41500 inputs have finished.
+Time has gone 28511.14 s.
+41600 inputs have finished.
+Time has gone 28579.38 s.
+41700 inputs have finished.
+Time has gone 28647.80 s.
+41800 inputs have finished.
+Time has gone 28715.90 s.
+41900 inputs have finished.
+Time has gone 28784.02 s.
+42000 inputs have finished.
+Time has gone 28852.42 s.
+42100 inputs have finished.
+Time has gone 28921.22 s.
+42200 inputs have finished.
+Time has gone 28990.10 s.
+42300 inputs have finished.
+Time has gone 29058.54 s.
+42400 inputs have finished.
+Time has gone 29127.13 s.
+42500 inputs have finished.
+Time has gone 29195.31 s.
+42600 inputs have finished.
+Time has gone 29264.09 s.
+42700 inputs have finished.
+Time has gone 29333.39 s.
+42800 inputs have finished.
+Time has gone 29402.53 s.
+42900 inputs have finished.
+Time has gone 29471.29 s.
+43000 inputs have finished.
+Time has gone 29540.14 s.
+43100 inputs have finished.
+Time has gone 29609.43 s.
+43200 inputs have finished.
+Time has gone 29679.09 s.
+43300 inputs have finished.
+Time has gone 29748.16 s.
+43400 inputs have finished.
+Time has gone 29817.03 s.
+43500 inputs have finished.
+Time has gone 29885.85 s.
+43600 inputs have finished.
+Time has gone 29954.28 s.
+43700 inputs have finished.
+Time has gone 30022.69 s.
+43800 inputs have finished.
+Time has gone 30092.08 s.
+43900 inputs have finished.
+Time has gone 30160.85 s.
+44000 inputs have finished.
+Time has gone 30229.12 s.
+44100 inputs have finished.
+Time has gone 30297.68 s.
+44200 inputs have finished.
+Time has gone 30366.54 s.
+44300 inputs have finished.
+Time has gone 30435.00 s.
+44400 inputs have finished.
+Time has gone 30503.13 s.
+44500 inputs have finished.
+Time has gone 30571.73 s.
+44600 inputs have finished.
+Time has gone 30641.91 s.
+44700 inputs have finished.
+Time has gone 30711.89 s.
+44800 inputs have finished.
+Time has gone 30780.75 s.
+44900 inputs have finished.
+Time has gone 30849.34 s.
+45000 inputs have finished.
+Time has gone 30919.04 s.
+45100 inputs have finished.
+Time has gone 30988.68 s.
+45200 inputs have finished.
+Time has gone 31057.24 s.
+45300 inputs have finished.
+Time has gone 31127.18 s.
+45400 inputs have finished.
+Time has gone 31196.75 s.
+45500 inputs have finished.
+Time has gone 31265.71 s.
+45600 inputs have finished.
+Time has gone 31334.74 s.
+45700 inputs have finished.
+Time has gone 31403.82 s.
+45800 inputs have finished.
+Time has gone 31471.57 s.
+45900 inputs have finished.
+Time has gone 31539.94 s.
+46000 inputs have finished.
+Time has gone 31608.81 s.
+46100 inputs have finished.
+Time has gone 31677.56 s.
+46200 inputs have finished.
+Time has gone 31746.95 s.
+46300 inputs have finished.
+Time has gone 31816.18 s.
+46400 inputs have finished.
+Time has gone 31885.75 s.
+46500 inputs have finished.
+Time has gone 31955.46 s.
+46600 inputs have finished.
+Time has gone 32025.56 s.
+46700 inputs have finished.
+Time has gone 32096.55 s.
+46800 inputs have finished.
+Time has gone 32167.50 s.
+46900 inputs have finished.
+Time has gone 32238.18 s.
+47000 inputs have finished.
+Time has gone 32308.71 s.
+47100 inputs have finished.
+Time has gone 32380.45 s.
+47200 inputs have finished.
+Time has gone 32451.10 s.
+47300 inputs have finished.
+Time has gone 32522.42 s.
+47400 inputs have finished.
+Time has gone 32593.28 s.
+47500 inputs have finished.
+Time has gone 32663.29 s.
+47600 inputs have finished.
+Time has gone 32732.19 s.
+47700 inputs have finished.
+Time has gone 32800.70 s.
+47800 inputs have finished.
+Time has gone 32868.92 s.
+47900 inputs have finished.
+Time has gone 32938.14 s.
+48000 inputs have finished.
+Time has gone 33007.33 s.
+48100 inputs have finished.
+Time has gone 33076.05 s.
+48200 inputs have finished.
+Time has gone 33144.72 s.
+48300 inputs have finished.
+Time has gone 33212.74 s.
+48400 inputs have finished.
+Time has gone 33281.45 s.
+48500 inputs have finished.
+Time has gone 33350.49 s.
+48600 inputs have finished.
+Time has gone 33420.25 s.
+48700 inputs have finished.
+Time has gone 33488.31 s.
+48800 inputs have finished.
+Time has gone 33556.85 s.
+48900 inputs have finished.
+Time has gone 33624.73 s.
+49000 inputs have finished.
+Time has gone 33692.18 s.
+49100 inputs have finished.
+Time has gone 33761.30 s.
+49200 inputs have finished.
+Time has gone 33830.33 s.
+49300 inputs have finished.
+Time has gone 33899.95 s.
+49400 inputs have finished.
+Time has gone 33968.77 s.
+49500 inputs have finished.
+Time has gone 34037.17 s.
+49600 inputs have finished.
+Time has gone 34105.54 s.
+49700 inputs have finished.
+Time has gone 34173.68 s.
+49800 inputs have finished.
+Time has gone 34241.18 s.
+49900 inputs have finished.
+Time has gone 34309.46 s.
+50000 inputs have finished.
+Time has gone 34377.09 s.
+50100 inputs have finished.
+Time has gone 34444.95 s.
+50200 inputs have finished.
+Time has gone 34513.94 s.
+50300 inputs have finished.
+Time has gone 34582.71 s.
+50400 inputs have finished.
+Time has gone 34653.84 s.
+50500 inputs have finished.
+Time has gone 34725.00 s.
+50600 inputs have finished.
+Time has gone 34794.10 s.
+50700 inputs have finished.
+Time has gone 34862.02 s.
+50800 inputs have finished.
+Time has gone 34929.92 s.
+50900 inputs have finished.
+Time has gone 34998.23 s.
+51000 inputs have finished.
+Time has gone 35066.00 s.
+51100 inputs have finished.
+Time has gone 35134.96 s.
+51200 inputs have finished.
+Time has gone 35202.46 s.
+51300 inputs have finished.
+Time has gone 35270.19 s.
+51400 inputs have finished.
+Time has gone 35339.06 s.
+51500 inputs have finished.
+Time has gone 35407.84 s.
+51600 inputs have finished.
+Time has gone 35476.26 s.
+51700 inputs have finished.
+Time has gone 35546.66 s.
+51800 inputs have finished.
+Time has gone 35620.02 s.
+51900 inputs have finished.
+Time has gone 35690.85 s.
+52000 inputs have finished.
+Time has gone 35763.80 s.
+52100 inputs have finished.
+Time has gone 35834.35 s.
+52200 inputs have finished.
+Time has gone 35904.22 s.
+52300 inputs have finished.
+Time has gone 35973.33 s.
+52400 inputs have finished.
+Time has gone 36043.70 s.
+52500 inputs have finished.
+Time has gone 36114.81 s.
+52600 inputs have finished.
+Time has gone 36182.70 s.
+52700 inputs have finished.
+Time has gone 36252.19 s.
+52800 inputs have finished.
+Time has gone 36322.05 s.
+52900 inputs have finished.
+Time has gone 36390.72 s.
+53000 inputs have finished.
+Time has gone 36461.37 s.
+53100 inputs have finished.
+Time has gone 36530.62 s.
+53200 inputs have finished.
+Time has gone 36598.97 s.
+53300 inputs have finished.
+Time has gone 36666.97 s.
+53400 inputs have finished.
+Time has gone 36734.66 s.
+53500 inputs have finished.
+Time has gone 36803.40 s.
+53600 inputs have finished.
+Time has gone 36871.83 s.
+53700 inputs have finished.
+Time has gone 36943.16 s.
+53800 inputs have finished.
+Time has gone 37014.25 s.
+53900 inputs have finished.
+Time has gone 37083.28 s.
+54000 inputs have finished.
+Time has gone 37151.76 s.
+54100 inputs have finished.
+Time has gone 37220.50 s.
+54200 inputs have finished.
+Time has gone 37292.08 s.
+54300 inputs have finished.
+Time has gone 37359.41 s.
+54400 inputs have finished.
+Time has gone 37428.28 s.
+54500 inputs have finished.
+Time has gone 37498.04 s.
+54600 inputs have finished.
+Time has gone 37566.80 s.
+54700 inputs have finished.
+Time has gone 37634.57 s.
+54800 inputs have finished.
+Time has gone 37703.07 s.
+54900 inputs have finished.
+Time has gone 37772.18 s.
+55000 inputs have finished.
+Time has gone 37841.96 s.
+55100 inputs have finished.
+Time has gone 37912.58 s.
+55200 inputs have finished.
+Time has gone 37982.16 s.
+55300 inputs have finished.
+Time has gone 38052.25 s.
+55400 inputs have finished.
+Time has gone 38124.36 s.
+55500 inputs have finished.
+Time has gone 38195.56 s.
+55600 inputs have finished.
+Time has gone 38266.21 s.
+55700 inputs have finished.
+Time has gone 38337.14 s.
+55800 inputs have finished.
+Time has gone 38406.29 s.
+55900 inputs have finished.
+Time has gone 38475.54 s.
+56000 inputs have finished.
+Time has gone 38545.26 s.
+56100 inputs have finished.
+Time has gone 38615.92 s.
+56200 inputs have finished.
+Time has gone 38686.69 s.
+56300 inputs have finished.
+Time has gone 38757.99 s.
+56400 inputs have finished.
+Time has gone 38830.54 s.
+56500 inputs have finished.
+Time has gone 38904.61 s.
+56600 inputs have finished.
+Time has gone 38976.61 s.
+56700 inputs have finished.
+Time has gone 39047.54 s.
+56800 inputs have finished.
+Time has gone 39120.04 s.
+56900 inputs have finished.
+Time has gone 39190.37 s.
+57000 inputs have finished.
+Time has gone 39262.11 s.
+57100 inputs have finished.
+Time has gone 39332.38 s.
+57200 inputs have finished.
+Time has gone 39402.12 s.
+57300 inputs have finished.
+Time has gone 39473.15 s.
+57400 inputs have finished.
+Time has gone 39544.44 s.
+57500 inputs have finished.
+Time has gone 39614.05 s.
+57600 inputs have finished.
+Time has gone 39684.66 s.
+57700 inputs have finished.
+Time has gone 39755.64 s.
+57800 inputs have finished.
+Time has gone 39824.59 s.
+57900 inputs have finished.
+Time has gone 39893.17 s.
+58000 inputs have finished.
+Time has gone 39961.98 s.
+58100 inputs have finished.
+Time has gone 40032.20 s.
+58200 inputs have finished.
+Time has gone 40101.59 s.
+58300 inputs have finished.
+Time has gone 40171.83 s.
+58400 inputs have finished.
+Time has gone 40240.93 s.
+58500 inputs have finished.
+Time has gone 40310.84 s.
+58600 inputs have finished.
+Time has gone 40380.84 s.
+58700 inputs have finished.
+Time has gone 40450.16 s.
+58800 inputs have finished.
+Time has gone 40521.41 s.
+58900 inputs have finished.
+Time has gone 40594.10 s.
+59000 inputs have finished.
+Time has gone 40664.33 s.
+59100 inputs have finished.
+Time has gone 40735.29 s.
+59200 inputs have finished.
+Time has gone 40809.46 s.
+59300 inputs have finished.
+Time has gone 40880.70 s.
+59400 inputs have finished.
+Time has gone 40952.92 s.
+59500 inputs have finished.
+Time has gone 41028.23 s.
+59600 inputs have finished.
+Time has gone 41101.83 s.
+59700 inputs have finished.
+Time has gone 41177.11 s.
+59800 inputs have finished.
+Time has gone 41253.55 s.
+59900 inputs have finished.
+Time has gone 41329.47 s.
+60000 inputs have finished.
+Time has gone 41398.74 s.
+60100 inputs have finished.
+Time has gone 41468.13 s.
+60200 inputs have finished.
+Time has gone 41539.32 s.
+60300 inputs have finished.
+Time has gone 41609.54 s.
+60400 inputs have finished.
+Time has gone 41680.53 s.
+60500 inputs have finished.
+Time has gone 41750.39 s.
+60600 inputs have finished.
+Time has gone 41819.31 s.
+60700 inputs have finished.
+Time has gone 41887.21 s.
+60800 inputs have finished.
+Time has gone 41957.88 s.
+60900 inputs have finished.
+Time has gone 42027.98 s.
+61000 inputs have finished.
+Time has gone 42097.13 s.
+61100 inputs have finished.
+Time has gone 42166.25 s.
+61200 inputs have finished.
+Time has gone 42234.74 s.
+61300 inputs have finished.
+Time has gone 42303.56 s.
+61400 inputs have finished.
+Time has gone 42373.22 s.
+61500 inputs have finished.
+Time has gone 42442.18 s.
+61600 inputs have finished.
+Time has gone 42511.15 s.
+61700 inputs have finished.
+Time has gone 42580.07 s.
+61800 inputs have finished.
+Time has gone 42649.95 s.
+61900 inputs have finished.
+Time has gone 42722.38 s.
+62000 inputs have finished.
+Time has gone 42796.72 s.
+62100 inputs have finished.
+Time has gone 42867.27 s.
+62200 inputs have finished.
+Time has gone 42936.86 s.
+62300 inputs have finished.
+Time has gone 43007.83 s.
+62400 inputs have finished.
+Time has gone 43078.23 s.
+62500 inputs have finished.
+Time has gone 43147.89 s.
+62600 inputs have finished.
+Time has gone 43217.22 s.
+62700 inputs have finished.
+Time has gone 43288.03 s.
+62800 inputs have finished.
+Time has gone 43360.52 s.
+62900 inputs have finished.
+Time has gone 43434.43 s.
+63000 inputs have finished.
+Time has gone 43504.91 s.
+63100 inputs have finished.
+Time has gone 43574.84 s.
+63200 inputs have finished.
+Time has gone 43644.99 s.
+63300 inputs have finished.
+Time has gone 43714.99 s.
+63400 inputs have finished.
+Time has gone 43785.37 s.
+63500 inputs have finished.
+Time has gone 43855.72 s.
+63600 inputs have finished.
+Time has gone 43925.35 s.
+63700 inputs have finished.
+Time has gone 43999.27 s.
+63800 inputs have finished.
+Time has gone 44070.14 s.
+63900 inputs have finished.
+Time has gone 44138.60 s.
+64000 inputs have finished.
+Time has gone 44207.90 s.
+64100 inputs have finished.
+Time has gone 44276.58 s.
+64200 inputs have finished.
+Time has gone 44345.51 s.
+64300 inputs have finished.
+Time has gone 44414.81 s.
+64400 inputs have finished.
+Time has gone 44483.16 s.
+64500 inputs have finished.
+Time has gone 44552.53 s.
+64600 inputs have finished.
+Time has gone 44621.84 s.
+64700 inputs have finished.
+Time has gone 44691.24 s.
+64800 inputs have finished.
+Time has gone 44760.36 s.
+64900 inputs have finished.
+Time has gone 44829.60 s.
+65000 inputs have finished.
+Time has gone 44898.15 s.
+65100 inputs have finished.
+Time has gone 44966.47 s.
+65200 inputs have finished.
+Time has gone 45035.12 s.
+65300 inputs have finished.
+Time has gone 45104.61 s.
+65400 inputs have finished.
+Time has gone 45175.09 s.
+65500 inputs have finished.
+Time has gone 45243.81 s.
+65600 inputs have finished.
+Time has gone 45312.82 s.
+65700 inputs have finished.
+Time has gone 45381.48 s.
+65800 inputs have finished.
+Time has gone 45451.84 s.
+65900 inputs have finished.
+Time has gone 45521.34 s.
+66000 inputs have finished.
+Time has gone 45590.56 s.
+66100 inputs have finished.
+Time has gone 45659.67 s.
+66200 inputs have finished.
+Time has gone 45728.29 s.
+66300 inputs have finished.
+Time has gone 45797.64 s.
+66400 inputs have finished.
+Time has gone 45866.89 s.
+66500 inputs have finished.
+Time has gone 45936.22 s.
+66600 inputs have finished.
+Time has gone 46006.49 s.
+66700 inputs have finished.
+Time has gone 46075.70 s.
+66800 inputs have finished.
+Time has gone 46145.06 s.
+66900 inputs have finished.
+Time has gone 46213.73 s.
+67000 inputs have finished.
+Time has gone 46282.40 s.
+67100 inputs have finished.
+Time has gone 46351.35 s.
+67200 inputs have finished.
+Time has gone 46420.91 s.
+67300 inputs have finished.
+Time has gone 46489.91 s.
+67400 inputs have finished.
+Time has gone 46559.05 s.
+67500 inputs have finished.
+Time has gone 46627.99 s.
+67600 inputs have finished.
+Time has gone 46697.86 s.
+67700 inputs have finished.
+Time has gone 46767.27 s.
+67800 inputs have finished.
+Time has gone 46836.17 s.
+67900 inputs have finished.
+Time has gone 46904.48 s.
+68000 inputs have finished.
+Time has gone 46975.13 s.
+68100 inputs have finished.
+Time has gone 47045.78 s.
+68200 inputs have finished.
+Time has gone 47115.92 s.
+68300 inputs have finished.
+Time has gone 47184.86 s.
+68400 inputs have finished.
+Time has gone 47253.78 s.
+68500 inputs have finished.
+Time has gone 47324.10 s.
+68600 inputs have finished.
+Time has gone 47395.61 s.
+68700 inputs have finished.
+Time has gone 47466.00 s.
+68800 inputs have finished.
+Time has gone 47535.38 s.
+68900 inputs have finished.
+Time has gone 47605.08 s.
+69000 inputs have finished.
+Time has gone 47675.03 s.
+69100 inputs have finished.
+Time has gone 47743.18 s.
+69200 inputs have finished.
+Time has gone 47811.53 s.
+69300 inputs have finished.
+Time has gone 47880.70 s.
+69400 inputs have finished.
+Time has gone 47950.32 s.
+69500 inputs have finished.
+Time has gone 48019.28 s.
+69600 inputs have finished.
+Time has gone 48088.95 s.
+69700 inputs have finished.
+Time has gone 48157.94 s.
+69800 inputs have finished.
+Time has gone 48227.25 s.
+69900 inputs have finished.
+Time has gone 48297.49 s.
+70000 inputs have finished.
+Time has gone 48366.23 s.
+70100 inputs have finished.
+Time has gone 48435.34 s.
+70200 inputs have finished.
+Time has gone 48504.74 s.
+70300 inputs have finished.
+Time has gone 48575.41 s.
+70400 inputs have finished.
+Time has gone 48646.09 s.
+70500 inputs have finished.
+Time has gone 48715.96 s.
+70600 inputs have finished.
+Time has gone 48785.23 s.
+70700 inputs have finished.
+Time has gone 48854.48 s.
+70800 inputs have finished.
+Time has gone 48924.16 s.
+70900 inputs have finished.
+Time has gone 48993.59 s.
+71000 inputs have finished.
+Time has gone 49064.44 s.
+71100 inputs have finished.
+Time has gone 49133.98 s.
+71200 inputs have finished.
+Time has gone 49204.29 s.
+71300 inputs have finished.
+Time has gone 49274.41 s.
+71400 inputs have finished.
+Time has gone 49344.00 s.
+71500 inputs have finished.
+Time has gone 49414.68 s.
+71600 inputs have finished.
+Time has gone 49485.03 s.
+71700 inputs have finished.
+Time has gone 49555.44 s.
+71800 inputs have finished.
+Time has gone 49627.07 s.
+71900 inputs have finished.
+Time has gone 49696.85 s.
+72000 inputs have finished.
+Time has gone 49767.03 s.
+72100 inputs have finished.
+Time has gone 49837.85 s.
+72200 inputs have finished.
+Time has gone 49908.21 s.
+72300 inputs have finished.
+Time has gone 49978.69 s.
+72400 inputs have finished.
+Time has gone 50047.46 s.
+72500 inputs have finished.
+Time has gone 50116.63 s.
+72600 inputs have finished.
+Time has gone 50187.28 s.
+72700 inputs have finished.
+Time has gone 50257.36 s.
+72800 inputs have finished.
+Time has gone 50328.79 s.
+72900 inputs have finished.
+Time has gone 50400.43 s.
+73000 inputs have finished.
+Time has gone 50471.40 s.
+73100 inputs have finished.
+Time has gone 50542.84 s.
+73200 inputs have finished.
+Time has gone 50614.10 s.
+73300 inputs have finished.
+Time has gone 50684.57 s.
+73400 inputs have finished.
+Time has gone 50755.25 s.
+73500 inputs have finished.
+Time has gone 50825.81 s.
+73600 inputs have finished.
+Time has gone 50897.42 s.
+73700 inputs have finished.
+Time has gone 50967.34 s.
+73800 inputs have finished.
+Time has gone 51037.22 s.
+73900 inputs have finished.
+Time has gone 51107.72 s.
+74000 inputs have finished.
+Time has gone 51177.85 s.
+74100 inputs have finished.
+Time has gone 51248.10 s.
+74200 inputs have finished.
+Time has gone 51318.44 s.
+74300 inputs have finished.
+Time has gone 51388.94 s.
+74400 inputs have finished.
+Time has gone 51459.80 s.
+74500 inputs have finished.
+Time has gone 51530.69 s.
+74600 inputs have finished.
+Time has gone 51600.54 s.
+74700 inputs have finished.
+Time has gone 51670.69 s.
+74800 inputs have finished.
+Time has gone 51740.59 s.
+74900 inputs have finished.
+Time has gone 51810.99 s.
+75000 inputs have finished.
+Time has gone 51880.80 s.
+75100 inputs have finished.
+Time has gone 51949.94 s.
+75200 inputs have finished.
+Time has gone 52018.87 s.
+75300 inputs have finished.
+Time has gone 52088.58 s.
+75400 inputs have finished.
+Time has gone 52158.36 s.
+75500 inputs have finished.
+Time has gone 52229.57 s.
+75600 inputs have finished.
+Time has gone 52299.25 s.
+75700 inputs have finished.
+Time has gone 52368.87 s.
+75800 inputs have finished.
+Time has gone 52438.69 s.
+75900 inputs have finished.
+Time has gone 52508.25 s.
+76000 inputs have finished.
+Time has gone 52578.51 s.
+76100 inputs have finished.
+Time has gone 52650.02 s.
+76200 inputs have finished.
+Time has gone 52719.61 s.
+76300 inputs have finished.
+Time has gone 52788.83 s.
+76400 inputs have finished.
+Time has gone 52858.42 s.
+76500 inputs have finished.
+Time has gone 52928.58 s.
+76600 inputs have finished.
+Time has gone 52997.67 s.
+76700 inputs have finished.
+Time has gone 53068.76 s.
+76800 inputs have finished.
+Time has gone 53138.56 s.
+76900 inputs have finished.
+Time has gone 53209.95 s.
+77000 inputs have finished.
+Time has gone 53281.14 s.
+77100 inputs have finished.
+Time has gone 53350.95 s.
+77200 inputs have finished.
+Time has gone 53421.18 s.
+77300 inputs have finished.
+Time has gone 53490.75 s.
+77400 inputs have finished.
+Time has gone 53560.89 s.
+77500 inputs have finished.
+Time has gone 53631.43 s.
+77600 inputs have finished.
+Time has gone 53703.13 s.
+77700 inputs have finished.
+Time has gone 53774.44 s.
+77800 inputs have finished.
+Time has gone 53844.96 s.
+77900 inputs have finished.
+Time has gone 53915.43 s.
+78000 inputs have finished.
+Time has gone 53986.40 s.
+78100 inputs have finished.
+Time has gone 54057.11 s.
+78200 inputs have finished.
+Time has gone 54127.44 s.
+78300 inputs have finished.
+Time has gone 54198.27 s.
+78400 inputs have finished.
+Time has gone 54269.35 s.
+78500 inputs have finished.
+Time has gone 54340.15 s.
+78600 inputs have finished.
+Time has gone 54410.59 s.
+78700 inputs have finished.
+Time has gone 54481.37 s.
+78800 inputs have finished.
+Time has gone 54551.23 s.
+78900 inputs have finished.
+Time has gone 54621.93 s.
+79000 inputs have finished.
+Time has gone 54694.48 s.
+79100 inputs have finished.
+Time has gone 54770.25 s.
+79200 inputs have finished.
+Time has gone 54844.27 s.
+79300 inputs have finished.
+Time has gone 54915.70 s.
+79400 inputs have finished.
+Time has gone 54989.02 s.
+79500 inputs have finished.
+Time has gone 55058.86 s.
+79600 inputs have finished.
+Time has gone 55129.10 s.
+79700 inputs have finished.
+Time has gone 55197.90 s.
+79800 inputs have finished.
+Time has gone 55266.80 s.
+79900 inputs have finished.
+Time has gone 55335.77 s.
+80000 inputs have finished.
+Time has gone 55405.21 s.
+80100 inputs have finished.
+Time has gone 55474.37 s.
+80200 inputs have finished.
+Time has gone 55543.67 s.
+80300 inputs have finished.
+Time has gone 55613.09 s.
+80400 inputs have finished.
+Time has gone 55682.45 s.
+80500 inputs have finished.
+Time has gone 55752.41 s.
+80600 inputs have finished.
+Time has gone 55821.95 s.
+80700 inputs have finished.
+Time has gone 55891.25 s.
+80800 inputs have finished.
+Time has gone 55960.83 s.
+80900 inputs have finished.
+Time has gone 56030.66 s.
+81000 inputs have finished.
+Time has gone 56099.25 s.
+81100 inputs have finished.
+Time has gone 56168.81 s.
+81200 inputs have finished.
+Time has gone 56239.27 s.
+81300 inputs have finished.
+Time has gone 56309.25 s.
+81400 inputs have finished.
+Time has gone 56379.73 s.
+81500 inputs have finished.
+Time has gone 56448.92 s.
+81600 inputs have finished.
+Time has gone 56517.11 s.
+81700 inputs have finished.
+Time has gone 56585.85 s.
+81800 inputs have finished.
+Time has gone 56654.36 s.
+81900 inputs have finished.
+Time has gone 56724.66 s.
+82000 inputs have finished.
+Time has gone 56794.64 s.
+82100 inputs have finished.
+Time has gone 56864.51 s.
+82200 inputs have finished.
+Time has gone 56933.70 s.
+82300 inputs have finished.
+Time has gone 57004.41 s.
+82400 inputs have finished.
+Time has gone 57074.50 s.
+82500 inputs have finished.
+Time has gone 57144.34 s.
+82600 inputs have finished.
+Time has gone 57214.28 s.
+82700 inputs have finished.
+Time has gone 57287.76 s.
+82800 inputs have finished.
+Time has gone 57365.30 s.
+82900 inputs have finished.
+Time has gone 57440.18 s.
+83000 inputs have finished.
+Time has gone 57511.95 s.
+83100 inputs have finished.
+Time has gone 57583.89 s.
+83200 inputs have finished.
+Time has gone 57657.11 s.
+83300 inputs have finished.
+Time has gone 57728.91 s.
+83400 inputs have finished.
+Time has gone 57802.64 s.
+83500 inputs have finished.
+Time has gone 57872.86 s.
+83600 inputs have finished.
+Time has gone 57942.40 s.
+83700 inputs have finished.
+Time has gone 58012.86 s.
+83800 inputs have finished.
+Time has gone 58083.74 s.
+83900 inputs have finished.
+Time has gone 58153.08 s.
+84000 inputs have finished.
+Time has gone 58222.38 s.
+84100 inputs have finished.
+Time has gone 58291.93 s.
+84200 inputs have finished.
+Time has gone 58361.36 s.
+84300 inputs have finished.
+Time has gone 58431.75 s.
+84400 inputs have finished.
+Time has gone 58503.41 s.
+84500 inputs have finished.
+Time has gone 58575.79 s.
+84600 inputs have finished.
+Time has gone 58648.98 s.
+84700 inputs have finished.
+Time has gone 58720.61 s.
+84800 inputs have finished.
+Time has gone 58790.90 s.
+84900 inputs have finished.
+Time has gone 58862.02 s.
+85000 inputs have finished.
+Time has gone 58931.25 s.
+85100 inputs have finished.
+Time has gone 59000.82 s.
+85200 inputs have finished.
+Time has gone 59070.97 s.
+85300 inputs have finished.
+Time has gone 59141.58 s.
+85400 inputs have finished.
+Time has gone 59211.48 s.
+85500 inputs have finished.
+Time has gone 59281.02 s.
+85600 inputs have finished.
+Time has gone 59352.94 s.
+85700 inputs have finished.
+Time has gone 59423.82 s.
+85800 inputs have finished.
+Time has gone 59494.73 s.
+85900 inputs have finished.
+Time has gone 59565.10 s.
+86000 inputs have finished.
+Time has gone 59636.08 s.
+86100 inputs have finished.
+Time has gone 59708.92 s.
+86200 inputs have finished.
+Time has gone 59779.58 s.
+86300 inputs have finished.
+Time has gone 59849.49 s.
+86400 inputs have finished.
+Time has gone 59923.02 s.
+86500 inputs have finished.
+Time has gone 59995.21 s.
+86600 inputs have finished.
+Time has gone 60064.96 s.
+86700 inputs have finished.
+Time has gone 60135.52 s.
+86800 inputs have finished.
+Time has gone 60205.85 s.
+86900 inputs have finished.
+Time has gone 60276.13 s.
+87000 inputs have finished.
+Time has gone 60347.04 s.
+87100 inputs have finished.
+Time has gone 60416.93 s.
+87200 inputs have finished.
+Time has gone 60486.12 s.
+87300 inputs have finished.
+Time has gone 60555.80 s.
+87400 inputs have finished.
+Time has gone 60625.92 s.
+87500 inputs have finished.
+Time has gone 60697.16 s.
+87600 inputs have finished.
+Time has gone 60767.47 s.
+87700 inputs have finished.
+Time has gone 60838.39 s.
+87800 inputs have finished.
+Time has gone 60908.61 s.
+87900 inputs have finished.
+Time has gone 60979.75 s.
+88000 inputs have finished.
+Time has gone 61050.43 s.
+88100 inputs have finished.
+Time has gone 61121.08 s.
+88200 inputs have finished.
+Time has gone 61190.44 s.
+88300 inputs have finished.
+Time has gone 61260.71 s.
+88400 inputs have finished.
+Time has gone 61331.07 s.
+88500 inputs have finished.
+Time has gone 61403.27 s.
+88600 inputs have finished.
+Time has gone 61474.50 s.
+88700 inputs have finished.
+Time has gone 61543.69 s.
+88800 inputs have finished.
+Time has gone 61614.53 s.
+88900 inputs have finished.
+Time has gone 61684.50 s.
+89000 inputs have finished.
+Time has gone 61753.41 s.
+89100 inputs have finished.
+Time has gone 61823.02 s.
+89200 inputs have finished.
+Time has gone 61892.88 s.
+89300 inputs have finished.
+Time has gone 61963.65 s.
+89400 inputs have finished.
+Time has gone 62033.82 s.
+89500 inputs have finished.
+Time has gone 62102.76 s.
+89600 inputs have finished.
+Time has gone 62173.85 s.
+89700 inputs have finished.
+Time has gone 62245.35 s.
+89800 inputs have finished.
+Time has gone 62317.48 s.
+89900 inputs have finished.
+Time has gone 62386.51 s.
+90000 inputs have finished.
+Time has gone 62458.01 s.
+90100 inputs have finished.
+Time has gone 62528.68 s.
+90200 inputs have finished.
+Time has gone 62597.15 s.
+90300 inputs have finished.
+Time has gone 62667.13 s.
+90400 inputs have finished.
+Time has gone 62737.13 s.
+90500 inputs have finished.
+Time has gone 62807.12 s.
+Classifying 90555 inputs.
+Done in 62845.75 s.
